@@ -11,7 +11,6 @@ import {
 function Slider({sliderList}) {
   return (
     <div className="p-5 md:p-10 px-16">
-        {console.log(sliderList)}
         <Carousel>
     <CarouselContent>
         {sliderList.map((slider,index)=>(

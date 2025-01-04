@@ -14,8 +14,12 @@ const getCatgeoryList=()=>axiosCLient.get('/categories?populate=*').then((res)=>
     return res.data.data;
 });
 
+const getAllProducts=()=>axiosCLient.get('/products?populate=*').then((res)=>{
+    return res.data.data;
+})
 export default {
     getCatgeory,
     getSlider,
-    getCatgeoryList
+    getCatgeoryList,
+    getAllProducts
 }

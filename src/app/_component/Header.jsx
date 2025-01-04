@@ -19,7 +19,6 @@ function Header() {
   },[])
   const getCatgeoryList =()=>{
     GLobalapi.getCatgeory().then(res=>{
-      console.log("category res: ",res.data.data);
       setCategory(res.data.data);
     })
   }
