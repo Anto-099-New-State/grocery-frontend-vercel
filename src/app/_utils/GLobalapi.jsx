@@ -13,13 +13,31 @@ const getSlider =()=>axiosCLient.get('/sliders?populate=*').then(rea=>{
 const getCatgeoryList=()=>axiosCLient.get('/categories?populate=*').then((res)=>{
     return res.data.data;
 });
-
 const getAllProducts=()=>axiosCLient.get('/products?populate=*').then((res)=>{
     return res.data.data;
 })
+
+const getAllProductsbyCategory=(category)=>axiosCLient.get('/products?filters[category][name][$in]='+category+"&populate=*").then((res)=>{
+    return res.data.data;
+})
+
+const registerUser=(username,email,password)=>axiosCLient.post('/auth/local/register',{
+    username:username,
+    email:email,
+    password:password
+});
+
+const signIn=(email,password)=>axiosCLient.post('/auth/local',{
+    identifier:email,
+    password:password
+});
+
 export default {
     getCatgeory,
     getSlider,
     getCatgeoryList,
-    getAllProducts
+    getAllProducts,
+    getAllProductsbyCategory,
+    registerUser,
+    signIn
 }

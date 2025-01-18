@@ -12,7 +12,6 @@ export default async function Home() {
    return (
 
     <div>
-     <Header/>
      <Slider sliderList={sliderList}/>
      <CategoryList categoryList={categoryList}/>
      <ProductList productList={productList} />

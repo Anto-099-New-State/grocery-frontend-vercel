@@ -1,5 +1,5 @@
 "use client"
-import { LayoutGrid, Search, ShoppingBag } from 'lucide-react'
+import { CircleUserRoundIcon, LayoutGrid, Search, ShoppingBag } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
@@ -12,6 +12,9 @@ import {
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
 import GLobalapi from '../_utils/GLobalapi'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+
 function Header() {
   const [category,setCategory] = useState([]);
   useEffect(()=>{
@@ -22,7 +25,12 @@ function Header() {
       setCategory(res.data.data);
     })
   }
-
+  const router = useRouter();
+  const isLogin = sessionStorage.getItem('jwt')?true:false
+  const onLogout=()=>{
+    sessionStorage.clear();
+    router.push('/sign-in');
+  } 
   return (
     <div className='p-5 shadow-md flex justify-between'>
         <div className='flex items-center gap-8'>
@@ -46,6 +54,7 @@ function Header() {
                <DropdownMenuSeparator />
                {
                 category.map((category,index)=>(
+                  <Link key={index} href={'/products-category/'+category?.name} >
                   <DropdownMenuItem key={index}>
                      <Image className='flex gap-2 items-center cursor-pointer'
                      src={
@@ -56,6 +65,7 @@ function Header() {
                      />
                     <h2>{category?.name}</h2>
                   </DropdownMenuItem>
+                  </Link>
                 ))
                }
             </DropdownMenuContent>
@@ -67,7 +77,10 @@ function Header() {
         </div>
         <div className='flex gap-5 items-center'>
             <h2 className='flex gap-2 items-center text-lg'><ShoppingBag/>0</h2>
-           <Button>Login</Button> 
+           {!isLogin? <Link href={'/sign-in'}> <Button>Login</Button> </Link> 
+           :
+           <CircleUserRoundIcon/>
+}
         </div>
         
     </div>
