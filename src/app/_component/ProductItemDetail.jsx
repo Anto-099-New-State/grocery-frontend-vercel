@@ -3,15 +3,28 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { ShoppingBasket } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import GLobalapi from '../_utils/GLobalapi'
 
 function ProductItemDetail({product}) {
-  const [productTotalPrice,setproductTotalPrice] = useState(
+
+  const jwt = sessionStorage.getItem('jwt');
+    const [productTotalPrice,setproductTotalPrice] = useState(
     product?.sellingprice?
     product?.sellingprice:product?.mrp
   )
+  const router = useRouter();
   let [quantity,setQuantiry] = useState(1);
   
-
+  const addtoCart=()=>{
+    if(!jwt){
+      router.push('/sign-in');
+   }
+   GLobalapi.addtoCart(data.jwt).then(res=>{
+    console.log(res);
+   })
+  }
+   
   return (
     <div className='grid grid-cols-1 md:grid-cols-2'>
         <Image src={process.env.NEXT_PUBLIC_BACKEND_BASE_URL+product.image[0]?.url}
@@ -38,7 +51,7 @@ function ProductItemDetail({product}) {
               </div>
               <h2 className='text-2xl font-extrabold text-black-200'>= ${quantity*productTotalPrice} </h2>
            </div>
-           <Button className='flex gap-3'>
+           <Button className='flex gap-3' onClick={()=> {addtoCart()}} >
                <ShoppingBasket/>
                Add to Cart
            </Button>

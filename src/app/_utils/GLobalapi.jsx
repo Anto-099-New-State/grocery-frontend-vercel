@@ -32,6 +32,12 @@ const signIn=(email,password)=>axiosCLient.post('/auth/local',{
     password:password
 });
 
+const addtoCart=()=>axiosCLient.post('user-carts',data,{
+    headers:{
+        Authorization:'Bearer'+jwt
+    }
+})
+
 export default {
     getCatgeory,
     getSlider,
@@ -39,5 +45,6 @@ export default {
     getAllProducts,
     getAllProductsbyCategory,
     registerUser,
-    signIn
+    signIn,
+    addtoCart
 }
